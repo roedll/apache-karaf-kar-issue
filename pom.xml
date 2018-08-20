@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>at.ac.ait.hbs.roedll</groupId>
+	<artifactId>apache.karaf.kar.issue</artifactId>
+	<version>0.0.1</version>
+	<packaging>pom</packaging>
+	<name>Apache Karaf 4.2.1 KAR Issue</name>
+
+	<modules>
+		<module>features</module>
+		<module>framework</module>
+	</modules>
+
+	<profiles>
+		<profile>
+			<id>doclint-java8-disable</id>
+			<activation>
+				<jdk>[1.8,)</jdk>
+			</activation>
+			<properties>
+				<additionalparam.doclint.java8.disable>-Xdoclint:none</additionalparam.doclint.java8.disable>
+			</properties>
+		</profile>
+	</profiles>
+
+	<properties>
+		<!-- General Settings -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<!-- Apache Karaf version information -->
+		<apache.karaf.version>4.2.1</apache.karaf.version>
+		<apache.karaf.plugin.version>${apache.karaf.version}</apache.karaf.plugin.version>
+	</properties>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>3.1.0</version>
+					<configuration>
+						<escapeString>\</escapeString>
+						<overwrite>true</overwrite>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<version>3.0.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.karaf.tooling</groupId>
+					<artifactId>karaf-maven-plugin</artifactId>
+					<version>${apache.karaf.plugin.version}</version>
+					<extensions>true</extensions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>filter</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>resources</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<repositories>
+		<repository>
+			<id>central</id>
+			<name>Maven Repository</name>
+			<layout>default</layout>
+			<url>
+				http://repo1.maven.org/maven2
+			</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<!-- Apache Staging -->
+		<repository>
+			<id>apache-karaf-staging</id>
+			<name>Apache Karaf Staging Repository</name>
+			<layout>default</layout>
+			<url>
+				https://repository.apache.org/content/repositories/orgapachekaraf-1114
+			</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>central</id>
+			<name>Maven Repository</name>
+			<layout>default</layout>
+			<url>
+				http://repo1.maven.org/maven2
+			</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+		<!-- Apache Staging -->
+		<pluginRepository>
+			<id>apache-karaf-staging</id>
+			<name>Apache Karaf Staging Repository</name>
+			<layout>default</layout>
+			<url>
+				https://repository.apache.org/content/repositories/orgapachekaraf-1114
+			</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+</project>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<groupId>at.ac.ait.hbs.roedll</groupId>
+		<artifactId>apache.karaf.kar.issue</artifactId>
+		<version>0.0.1</version>
+		<relativePath>../</relativePath>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>apache.karaf.kar.issue.framework</artifactId>
+	<packaging>pom</packaging>
+	<name>Framework</name>
+
+	<dependencies>
+		<!-- Karaf -->
+        <dependency>
+            <groupId>org.apache.karaf.features</groupId>
+            <artifactId>framework</artifactId>
+			<version>${apache.karaf.version}</version>
+            <type>kar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.karaf.features</groupId>
+            <artifactId>framework</artifactId>
+			<version>${apache.karaf.version}</version>
+            <classifier>features</classifier>
+            <type>xml</type>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.karaf.features</groupId>
+            <artifactId>standard</artifactId>
+			<version>${apache.karaf.version}</version>
+            <classifier>features</classifier>
+            <type>xml</type>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.karaf.features</groupId>
+            <artifactId>spring</artifactId>
+			<version>${apache.karaf.version}</version>
+            <classifier>features</classifier>
+            <type>xml</type>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.karaf.features</groupId>
+            <artifactId>enterprise</artifactId>
+			<version>${apache.karaf.version}</version>
+            <classifier>features</classifier>
+            <type>xml</type>
+            <scope>runtime</scope>
+		</dependency>
+
+		<!-- TEST -->
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>apache.karaf.kar.issue.features.resources</artifactId>
+			<version>${project.version}</version>
+			<type>kar</type>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.karaf.tooling</groupId>
+				<artifactId>karaf-maven-plugin</artifactId>
+				<version>${apache.karaf.version}</version>
+				<extensions>true</extensions>
+				<executions>
+					<execution>
+						<id>install-kar</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>assembly</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<includeBuildOutputDirectory>false</includeBuildOutputDirectory>
+					<generateConsistencyReport>${project.build.directory}/report</generateConsistencyReport>
+					<workDirectory>${project.build.directory}/tmp</workDirectory>
+					<installedFeatures>
+						<feature>wrapper</feature>
+						<feature>aries-blueprint</feature>
+						<feature>shell-compat</feature>
+					</installedFeatures>
+					<startupFeatures>
+						<feature>eventadmin</feature>
+					</startupFeatures>
+					<bootFeatures>
+						<feature>wrap</feature>
+						<feature>shell</feature>
+						<feature>feature</feature>
+						<feature>jaas</feature>
+						<feature>ssh</feature>
+						<feature>management</feature>
+						<feature>bundle</feature>
+						<feature>config</feature>
+						<feature>deployer</feature>
+						<feature>diagnostic</feature>
+						<feature>instance</feature>
+						<feature>kar</feature>
+						<feature>log</feature>
+						<feature>package</feature>
+						<feature>service</feature>
+						<feature>system</feature>
+					</bootFeatures>
+					<pidsToExtract>
+						!jmx.acl.*,
+						!org.apache.karaf.command.acl.*,
+						!org.apache.felix.eventadmin.impl.EventAdmin,
+						*
+					</pidsToExtract>
+					<javase>1.8</javase>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
